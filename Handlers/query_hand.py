@@ -23,6 +23,8 @@ def post(update, context):
         db.delete_user(user)
         context.bot.send_message(id,"Rad etildi.")
         context.bot.send_message(user,"Ruxsat berilmadi.")
+    else:
+        return STATE_MONEY
     
 def money(update, context):
     query=update.callback_query
