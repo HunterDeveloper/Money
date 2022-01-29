@@ -1,3 +1,4 @@
+from unicodedata import name
 from const import *
 from db_helper import DBUser
 from Buttons.inline_btn import *
@@ -29,3 +30,25 @@ def admin_send_message(update, context):
         except Exception as e:
             context.bot.send_message(ADMIN, f"Xabar yuborishda xatolik. {e}\n{i[0]}")
             continue
+
+def take_comment(update, context):
+    id=update.message.from_user.id
+    text=update.message.text
+    if len(text)>=2:
+        context.bot.send_message(id, "Summani kiriting\nMisol:10 000/10000")
+        db.add_money(id,update.message.from_user.first_name, text,db.get_position(id))
+        return STATE_SUMA
+    else:
+        context.bot.send_message(id, "Commentni qatatdan kiriitng.")
+
+def take_money(update, context):
+    id=update.message.from_user.id
+    text=update.message.text
+    text=str(text).replace(" ",'')
+    name=update.message.from_user.first_name
+    if text.isnumeric():
+        db.set_value(db.get_position(id),int(text))
+        context.bot.send_message(id, "Bazaga qo'shildi.")
+    else:
+        context.bot.send_message(id, "Summani boshqatdan kiriting.\nSummadfa faqat sonlar bo'ladi!")
+    

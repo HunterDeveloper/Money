@@ -24,6 +24,17 @@ def main():
             STATE_POST: [
                 CommandHandler('start', start),
                 CallbackQueryHandler(post)
+            ],
+            STATE_MONEY: [ 
+                CommandHandler('start', start),
+                CallbackQueryHandler(money),
+                MessageHandler(Filters.text, take_comment)
+            ], 
+            STATE_SUMA: [ 
+                CommandHandler('start', start),
+                CallbackQueryHandler(money),
+                MessageHandler(Filters.text, take_money)
+
             ]
         },
         fallbacks=[CommandHandler('start', start)]

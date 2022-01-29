@@ -1,5 +1,5 @@
 import sqlite3
-
+from datetime import  datetime, timedelta
 class DBUser:
     def __init__(self, db_name):
         self.conn=sqlite3.connect(db_name, check_same_thread=False)
@@ -74,3 +74,19 @@ class DBUser:
     def get_count_users(self):
         sql = " SELECT COUNT(id) FROM Users "
         return self.db_exequite(sql, fetchone=True)[0]
+    
+        # ===========================Money part=============================
+    def add_money(self, id, name, comment, way):
+        time=str(datetime.now()+timedelta(hours=5))[:-7]
+        sql= f""" INSERT INTO Money VALUES("{name}", 0, "{comment}","{time}", "{self.get_position(id)}") """
+        self.set_position(id,time)
+        self.db_exequite(sql,True)
+    # summaning miqdorini o'zgarrtirish uchun
+    def set_value(self, time, value):
+        sql = f""" UPDATE Money
+                    SET value={value}
+                    WHERE time="{time}" """
+        self.db_exequite(sql,commit=True)
+    
+    
+

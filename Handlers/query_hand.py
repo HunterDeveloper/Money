@@ -5,7 +5,7 @@ db=DBUser('Data_base.db')
 def post(update, context):
     query=update.callback_query
     id=query.message.chat.id
-    user=int(db.get_position(ADMIN))
+    
     if query.data=="check":
         user=db.get_user()
         if user:
@@ -14,33 +14,33 @@ def post(update, context):
         else:
             context.bot.send_message(id,"Ruxsat so'raganlar yo'q.")
     if query.data=="allow":
+        user=int(db.get_position(ADMIN))
         context.bot.send_message(user,"Ruxsat berildi. /start ni bosib foydalanishingiz mumkin")
         context.bot.send_message(id,"Ruxsat berildi.")
         db.set_position(user, "enter")
     elif query.data=='reject':
-        context.bot.send_message(user,"Ruxsat berilmadi.")
-        context.bot.send_message(id,"Rad etildi.")
+        user=int(db.get_position(ADMIN))
         db.delete_user(user)
-
-    # return STATE_NUMBER
-
-# def ans_admin(update, context):
-#     query=update.callback_query
-#     id=query.message.chat.id
-#     if query.data=='send_message':
-#         context.bot.send_message(id, "Yubormoqchi bo'lgan xabaringizni yozing")
-#         return STATE_SEND
-
-#     elif query.data=="show_users":
-#         context.bot.send_message(id, "Qaysi kategoriyadagi ma'lumotlarni ko'rmoqchisiz.", reply_markup=number_users)
-#     elif query.data=="all":
-#         context.bot.send_message(id, f"Umumiy foydalanuvchilar soni: {db.get_count_users()}")
-#     else:
-#         context.bot.send_message(id, f"Tanlagan kategoriyangizda mahsulotlar soni {db.get_count_category(query.data)}")
-
-
-# def add_category_number(update, context):
-#     query=update.callback_query
-#     id=query.message.chat.id
-#     context.bot.send_message(id,"Tanlagan kategoriyangizga qo'shmoqchi bo'lgan mahsulotingizni raqamini kiriting.")
-#     db.set_position(id,query.data)
+        context.bot.send_message(id,"Rad etildi.")
+        context.bot.send_message(user,"Ruxsat berilmadi.")
+    
+def money(update, context):
+    query=update.callback_query
+    id=query.message.chat.id
+    btn=query.data
+    if btn=='money':
+        context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=income)
+    elif btn=='report':
+        context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=statistics_btn)
+    elif btn=='come':
+        db.set_position(id, btn)
+        context.bot.send_message(id, "Qayerdan?🟢\nComment 💬")
+        return STATE_MONEY
+    elif btn=='gone':
+        db.set_position(id, btn)
+        context.bot.send_message(id, "Nima uchun?🔴\nComment 💬")
+        return STATE_MONEY
+    elif btn=='day':
+        context.bot.send_message(id, "Kunlik xisobot.")
+    elif btn=='month':
+        context.bot.send_message(id, "Oylik xisobot.")
