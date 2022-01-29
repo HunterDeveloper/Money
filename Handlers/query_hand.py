@@ -28,7 +28,9 @@ def money(update, context):
     query=update.callback_query
     id=query.message.chat.id
     btn=query.data
-    if btn=='money':
+    if btn=="main_menu":
+        context.bot.send_message(id, "Quyidagi Menyulardan birini tanlang", reply_markup=main_btn)
+    elif btn=='money':
         context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=income)
     elif btn=='report':
         context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=statistics_btn)
@@ -42,5 +44,31 @@ def money(update, context):
         return STATE_MONEY
     elif btn=='day':
         context.bot.send_message(id, "Kunlik xisobot.")
+        report=db.get_dayly()
+        kirim, chiqim=0,0
+        for i in report:
+            if i[-1]=="come":
+                context.bot.send_message(id, f"""{i[0]}\n{i[1]}\n{i[2]}\n{i[3]}\n🟢""")
+                kirim+=1
+            else:
+                context.bot.send_message(id, f"""{i[0]}\n{i[1]}\n{i[2]}\n{i[3]}\n🔴""")
+                chiqim+=1
+        context.bot.send_message(id, f"Kun davomida:\n{kirim} 🟢{db.get_dayly_income()}\n{chiqim} 🔴{db.get_dayly_expense()}", reply_markup=prev)
     elif btn=='month':
         context.bot.send_message(id, "Oylik xisobot.")
+        report=db.get_monthly()
+        kirim, chiqim=0,0
+        for i in report:
+            if i[-1]=="come":
+                context.bot.send_message(id, f"""{i[0]}\n{i[1]}\n{i[2]}\n{i[3]}\n🟢""")
+                kirim+=1
+            else:
+                context.bot.send_message(id, f"""{i[0]}\n{i[1]}\n{i[2]}\n{i[3]}\n🔴""")
+                chiqim+=1
+        context.bot.send_message(id, f"Oy davomida:\n{kirim} 🟢{db.get_monthly_income()}\n{chiqim} 🔴{db.get_monthly_expense()}", reply_markup=prev)
+    elif btn=="income":
+        context.bot.send_message(id, f"Umumiy daromad 🟢\n{db.get_income()}", reply_markup=prev)
+    elif btn=="expense":
+        context.bot.send_message(id, f"Umumiy xarajat 🔴\n{db.get_expense()}",reply_markup=prev)
+    elif btn=="benefit":
+        context.bot.send_message(id, f"Umumiy Foyda \n{db.get_income()-db.get_expense()}",reply_markup=prev)

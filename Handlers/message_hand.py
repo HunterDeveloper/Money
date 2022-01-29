@@ -48,7 +48,7 @@ def take_money(update, context):
     name=update.message.from_user.first_name
     if text.isnumeric():
         db.set_value(db.get_position(id),int(text))
-        context.bot.send_message(id, "Bazaga qo'shildi.")
+        context.bot.send_message(id, "Bazaga qo'shildi.", reply_markup=back)
     else:
         context.bot.send_message(id, "Summani boshqatdan kiriting.\nSummadfa faqat sonlar bo'ladi!")
     

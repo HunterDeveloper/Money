@@ -23,15 +23,19 @@ def main():
             ],
             STATE_POST: [
                 CommandHandler('start', start),
+                CommandHandler('aftor', aftor),
                 CallbackQueryHandler(post)
             ],
             STATE_MONEY: [ 
                 CommandHandler('start', start),
+                CommandHandler('aftor', aftor),
                 CallbackQueryHandler(money),
                 MessageHandler(Filters.text, take_comment)
             ], 
             STATE_SUMA: [ 
                 CommandHandler('start', start),
+                CommandHandler('aftor', aftor),
+                CommandHandler('hammasini_uchir', clear),
                 CallbackQueryHandler(money),
                 MessageHandler(Filters.text, take_money)
 
