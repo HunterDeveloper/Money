@@ -36,14 +36,18 @@ def money(update, context):
         context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=income)
     elif btn=='report':
         context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=statistics_btn)
+    elif btn=='terminal' or btn=="cash" or btn=="click":
+        context.bot.send_message(id, "Qayerdan?🟢\nComment 💬")
     elif btn=='come':
         db.set_position(id, btn)
-        context.bot.send_message(id, "Qayerdan?🟢\nComment 💬")
+        context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=type_income)
+        return STATE_MONEY
+    elif btn=='academy' or btn=="personal":
+        context.bot.send_message(id, "Nima uchun?🔴\nComment 💬")
         return STATE_MONEY
     elif btn=='gone':
         db.set_position(id, btn)
-        context.bot.send_message(id, "Nima uchun?🔴\nComment 💬")
-        return STATE_MONEY
+        context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=type_outlay)
     elif btn=='day':
         context.bot.send_message(id, "Kunlik xisobot.")
         report=db.get_dayly()

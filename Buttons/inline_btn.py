@@ -4,6 +4,17 @@ income=InlineKeyboardMarkup( [
     [InlineKeyboardButton("⬅️Orqaga", callback_data='main_menu')]
 ])
 
+type_income=InlineKeyboardMarkup( [
+    [ InlineKeyboardButton('Terminal 💳', callback_data='terminal'),InlineKeyboardButton('Cash 💰', callback_data='cash')],
+    [InlineKeyboardButton("CliCK 🌐", callback_data='click')],
+    [InlineKeyboardButton("⬅️Orqaga", callback_data='main_menu')]
+])
+
+type_outlay=InlineKeyboardMarkup( [
+    [InlineKeyboardButton("ACADEMY 🏢", callback_data='academy')],
+    [InlineKeyboardButton("Shaxsiy 🤵🏻‍♂️", callback_data='personal')]
+])
+
 admin_btn=InlineKeyboardMarkup([
     [
         InlineKeyboardButton("Kunlik 🗓", callback_data='day'),
