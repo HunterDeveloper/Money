@@ -14,6 +14,11 @@ type_outlay=InlineKeyboardMarkup( [
     [InlineKeyboardButton("ACADEMY 🏢", callback_data='academy')],
     [InlineKeyboardButton("Shaxsiy 🤵🏻‍♂️", callback_data='personal')]
 ])
+type_outlay_report=InlineKeyboardMarkup( [
+    [InlineKeyboardButton("ACADEMY 🏢", callback_data='academy')],
+    [InlineKeyboardButton("Shaxsiy 🤵🏻‍♂️", callback_data='personal')],
+    [InlineKeyboardButton("Umumiy 📜", callback_data='overall')]
+])
 
 admin_btn=InlineKeyboardMarkup([
     [

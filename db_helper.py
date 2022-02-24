@@ -99,31 +99,52 @@ class DBUser:
         return self.db_exequite(sql,fechall=True)
     
     def get_income(self):
-        sql = """ SELECT SUM(value) FROM Money WHERE way="come";"""
+        sql = """ SELECT SUM(value) FROM Money WHERE way like "come%";"""
         return self.db_exequite(sql,fetchone=True)[0]
     
     def get_expense(self):
-        sql = """ SELECT SUM(value) FROM Money WHERE way="gone";"""
+        sql = """ SELECT SUM(value) FROM Money WHERE way like "gone%";"""
         return self.db_exequite(sql,fetchone=True)[0]
 
+    # overall
     def get_dayly_income(self):
         time=str(datetime.now()+timedelta(hours=5))[:10]
-        sql = f""" SELECT SUM(value) FROM Money WHERE way="come" AND time like "{time}%" """
+        sql = f""" SELECT SUM(value) FROM Money WHERE way like "come%" AND time like "{time}%" """
         return self.db_exequite(sql,fetchone=True)[0]
-
     def get_monthly_income(self):
         time=str(datetime.now()+timedelta(hours=5))[:7]
-        sql = f""" SELECT SUM(value) FROM Money WHERE way="come" AND time like "{time}%" """
+        sql = f""" SELECT SUM(value) FROM Money WHERE way like "come%" AND time like "{time}%" """
         return self.db_exequite(sql,fetchone=True)[0]
 
     def get_dayly_expense(self):
         time=str(datetime.now()+timedelta(hours=5))[:10]
-        sql = f""" SELECT SUM(value) FROM Money WHERE way="gone" AND time like "{time}%" """
+        sql = f""" SELECT SUM(value) FROM Money WHERE way like "gone%" AND time like "{time}%" """
         return self.db_exequite(sql,fetchone=True)[0]
 
     def get_monthly_expense(self):
         time=str(datetime.now()+timedelta(hours=5))[:7]
-        sql = f""" SELECT SUM(value) FROM Money WHERE way="gone" AND time like "{time}%" """
+        sql = f""" SELECT SUM(value) FROM Money WHERE way like "gone%" AND time like "{time}%" """
+        return self.db_exequite(sql,fetchone=True)[0]
+    # Personal
+    def get_dayly_expense_personal(self):
+        time=str(datetime.now()+timedelta(hours=5))[:10]
+        sql = f""" SELECT SUM(value) FROM Money WHERE way=="gone_personal" AND time like "{time}%" """
+        return self.db_exequite(sql,fetchone=True)[0]
+
+    def get_monthly_expense_personal(self):
+        time=str(datetime.now()+timedelta(hours=5))[:7]
+        sql = f""" SELECT SUM(value) FROM Money WHERE way=="gone_personal" AND time like "{time}%" """
+        return self.db_exequite(sql,fetchone=True)[0]
+    
+    # Academy
+    def get_dayly_expense_academy(self):
+        time=str(datetime.now()+timedelta(hours=5))[:10]
+        sql = f""" SELECT SUM(value) FROM Money WHERE way=="gone_academy" AND time like "{time}%" """
+        return self.db_exequite(sql,fetchone=True)[0]
+
+    def get_monthly_expense_academy(self):
+        time=str(datetime.now()+timedelta(hours=5))[:7]
+        sql = f""" SELECT SUM(value) FROM Money WHERE way=="gone_academy" AND time like "{time}%" """
         return self.db_exequite(sql,fetchone=True)[0]
     
     def clear_db(self):

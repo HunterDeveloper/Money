@@ -39,6 +39,11 @@ def main():
                 CallbackQueryHandler(money),
                 MessageHandler(Filters.text, take_money)
 
+            ],
+            STATE_REPORT:[ 
+                CommandHandler('start', start),
+                CommandHandler('aftor', aftor),
+                CallbackQueryHandler(report)
             ]
         },
         fallbacks=[CommandHandler('start', start)]
