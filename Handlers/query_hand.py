@@ -11,6 +11,7 @@ def post(update, context):
         if user:
             context.bot.send_message(id,f"Name:{db.get_user_name(user)}\nPhone:{db.get_user_number(user)}", reply_markup=post_btn)
             db.set_position(id, user)
+            return STATE_POST
         else:
             context.bot.send_message(id,"Ruxsat so'raganlar yo'q.")
     if query.data=="allow":
@@ -23,8 +24,15 @@ def post(update, context):
         db.delete_user(user)
         context.bot.send_message(id,"Rad etildi.")
         context.bot.send_message(user,"Ruxsat berilmadi.")
-    else:
+    elif query.data=="money":
+        context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=income)
         return STATE_MONEY
+    elif query.data=='report':
+        context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=statistics_btn)
+        return STATE_REPORT
+    elif query.data=="send_message":
+        context.bot.send_message(id, "ytubormoqchi bo'lgan xabaringizni kiriting.")
+        return STATE_POST
     
 def money(update, context):
     query=update.callback_query

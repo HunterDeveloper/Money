@@ -24,7 +24,8 @@ def main():
             STATE_POST: [
                 CommandHandler('start', start),
                 CommandHandler('aftor', aftor),
-                CallbackQueryHandler(post)
+                CallbackQueryHandler(post),
+                MessageHandler(Filters.text, admin_send_message)
             ],
             STATE_MONEY: [ 
                 CommandHandler('start', start),
