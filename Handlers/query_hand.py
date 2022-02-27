@@ -53,6 +53,12 @@ def money(update, context):
         context.bot.send_message(id, "Qayerdan?🟢\nComment 💬")
     elif btn=='gone':
         context.bot.send_message(id, "Quyidagi tuqmalardan birini tanlang", reply_markup=type_outlay)
+    elif btn=="academy":
+        db.set_position(id, "gone_"+str(btn))
+        context.bot.send_message(id, "Nima uchun?🔴\nComment 💬")
+    elif btn=="personal":
+        db.set_position(id, "gone_"+str(btn))
+        context.bot.send_message(id, "Nima uchun?🔴\nComment 💬")
     
 def report(update, context):
     query=update.callback_query
